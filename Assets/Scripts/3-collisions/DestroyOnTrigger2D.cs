@@ -8,13 +8,13 @@ using UnityEngine;
 public class DestroyOnTrigger2D : MonoBehaviour {
     [Tooltip("Every object tagged with this tag will trigger the destruction of this object")]
     [SerializeField] string[] DestroyBothTags; // This array will hold the tags, that if collided with the object this script is attached to, will destory both colliders.
-    [SerializeField] string[] DestroyEnemyTags; //This array holds the tags that if collided with this object, only this collider that holds the script will be destroyed.
+    [SerializeField] string[] DestroySelfOnEnemyTags; //This array holds the tags that if collided with this object, only this collider that holds the script will be destroyed.
     //the reason I made this is to add functionallity to different objects that collide, for example the upgraded cannon will not be destoryed when it collides with an enemy, 
     //while a regular shot will - if expanded, multiple tags can do different things, so this is an easy way to manage it.
     
     private void OnTriggerEnter2D(Collider2D other) {
         bool DestroyBothFlag = false;
-        bool DestroyEnemyFlag = false;
+        bool DestroySelfOnEnemyFlag = false;
 
         //check if its in either array
         for (int i = 0; i < DestroyBothTags.Length && (!DestroyBothFlag); i++)
@@ -24,11 +24,11 @@ public class DestroyOnTrigger2D : MonoBehaviour {
                 DestroyBothFlag = true;
             }
         }
-        for (int i = 0; i < DestroyEnemyTags.Length && !(DestroyEnemyFlag || DestroyBothFlag); i++)
+        for (int i = 0; i < DestroySelfOnEnemyTags.Length && !(DestroySelfOnEnemyFlag || DestroyBothFlag); i++)
         {
-            if (DestroyEnemyTags[i] == other.tag)
+            if (DestroySelfOnEnemyTags[i] == other.tag)
             {
-                DestroyEnemyFlag = true;
+                DestroySelfOnEnemyFlag = true;
             }
         }
 
@@ -39,7 +39,7 @@ public class DestroyOnTrigger2D : MonoBehaviour {
             Destroy(other.gameObject);
         }
 
-        else if(DestroyEnemyFlag && enabled)
+        else if(DestroySelfOnEnemyFlag && enabled)
         {
             Destroy(gameObject);
         }

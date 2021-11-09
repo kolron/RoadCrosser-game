@@ -35,7 +35,7 @@ public class LaserShooter : MonoBehaviour
        //Get the Direction of where the player is looking from the KeyboardMover
         var playerRotation = GetComponent<KeyboardMover>().playerRotation;
         //Same Prefab, Different sprites for each Direction.
-        string spritename = $"Images/Blasts/blast{playerRotation}";
+        string spriteName = $"Images/Blasts/blast{playerRotation}";
         
         
         GameObject newObject;
@@ -48,14 +48,14 @@ public class LaserShooter : MonoBehaviour
             //Spawn the prefab
             newObject = Instantiate(prefabToSpawn, positionOfSpawnedObject + positionOffsetY, rotationOfSpawnedObject);
             //render the correct Image
-            newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spritename);
+            newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             //And set the direciton vector for the bullet
             bulletDirection.y = velocityOfSpawnedObject;
         }
         else if (playerRotation == "down")
         {
             newObject = Instantiate(prefabToSpawn, positionOfSpawnedObject -  new Vector3(0, positionOffset, 0), rotationOfSpawnedObject);
-            newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spritename);
+            newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             bulletDirection.y = -velocityOfSpawnedObject;
 
 
@@ -63,14 +63,14 @@ public class LaserShooter : MonoBehaviour
         else if (playerRotation == "left")
         {
             newObject = Instantiate(prefabToSpawn, positionOfSpawnedObject - new Vector3(positionOffset, 0, 0), rotationOfSpawnedObject);
-            newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spritename);
+            newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             bulletDirection.x = -velocityOfSpawnedObject;
 
         }
         else //Player Rotation == right
         { 
            newObject = Instantiate(prefabToSpawn, positionOfSpawnedObject + new Vector3(positionOffset, 0, 0), rotationOfSpawnedObject);
-           newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spritename);
+           newObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             bulletDirection.x = velocityOfSpawnedObject;
 
         }
