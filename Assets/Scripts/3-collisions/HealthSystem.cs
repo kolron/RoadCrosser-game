@@ -9,26 +9,26 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
 
-    [SerializeField] int lives = 3;
+    [SerializeField] int lives;
     [SerializeField] string sceneName;
+    private int bulletDamage = 1;
     //used to show how many lives players have
     [SerializeField] NumberField scoreField;
-    [SerializeField] int pointsToAdd;
 
     //Reduce lives whenever player is hit by a car or by a bullet, on death, the other player wins
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Car" || other.tag == "Bullet")
         {
-            Damage();   
+            Damage(bulletDamage);   
             
-            Debug.Log("Was hit");
+           
         }
     }
-    //Reduce player lives and display it.
-    public void Damage() {
-        scoreField.AddNumber(pointsToAdd);
-        --lives;
+    //Reduce player lives by damage and display it.
+    public void Damage(int damage) {
+        scoreField.AddNumber(-damage);
+        lives -= damage;
         if (lives==0) {
             Debug.Log("Game Over");
             SceneManager.LoadScene(sceneName);

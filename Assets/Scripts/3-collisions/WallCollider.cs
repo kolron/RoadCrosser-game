@@ -9,7 +9,7 @@ public class WallCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         HealthSystem healthSystem;
-        if (other.tag != "PlayerBot" && other.tag != "PlayerTop") 
+        if (other.tag != "PlayerBot" && other.tag != "PlayerTop")
         {
             Destroy(other.gameObject);
         }
@@ -17,9 +17,9 @@ public class WallCollider : MonoBehaviour
         {
             //If a player hits the walls, they die and the other player wins
             healthSystem = other.gameObject.GetComponent<HealthSystem>();
-            healthSystem.Damage();
-            healthSystem.Damage();
-            healthSystem.Damage();
+
+            healthSystem.Damage(healthSystem.getLives());
+
         }
 
     }

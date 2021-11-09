@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshPro))]
 public class NumberField : MonoBehaviour
 {
+    private int lastLife = 1;
     HealthSystem healthSystem;
     private int number;
 
@@ -15,6 +16,7 @@ public class NumberField : MonoBehaviour
     {   //Set the number to be the lives player start with
         healthSystem = transform.parent.GetComponent<HealthSystem>();
         number = healthSystem.getLives();
+        GetComponent<TextMeshPro>().text = number.ToString();
     }
 
     public int GetNumber()
@@ -24,7 +26,15 @@ public class NumberField : MonoBehaviour
 
     public void SetNumber(int newNumber)
     {
-        this.number = newNumber;
+        //ensure we don't display below 0
+        if (newNumber < lastLife)
+        {
+            this.number = lastLife;
+        }
+        else
+        {
+            this.number = newNumber;
+        }
         GetComponent<TextMeshPro>().text = newNumber.ToString();
     }
 
